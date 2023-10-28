@@ -1,27 +1,40 @@
+
+
+const http=require('http');
+const data = require('./data');
+
+http.createServer( ( req,resp)=>{
+ resp.writeHead(200, {'content-type': 'application/json'});
+ resp.write(JSON.stringify(data));
+ resp.end();
+}).listen(3002);
+
+
+
+
+
 const fs=require('fs');
-const path =require('path');
-const dirpath= path.join(__dirname,'crud');
-const filepath=`${dirpath}/apple.txt`;
 
-//write
-fs.writeFileSync(filepath, 'this is a sample page');
+const input=process.argv;
+console.log(input);
 
-//read
-//utf8 and tostring() noth method is used to convert buffer data into redeable data
-// fs.readFile(filepath, 'utf8',(err, item)=>{
-//     console.log(item);
-// });
-
-//update
-// fs.appendFile(filepath,' the file naem is crud.txt', (err)=>{
-// if(!err) console.log("file is updated");
-// })
-
-//rename
-// fs.rename(filepath,`${dirpath}/fruit.txt`,(err)=>{
-//     if(!err)console.log('file name is changed to fruit.txt');
-// })
+if(input[2]=='add'){
+ fs.writeFileSync(input[3],input[4])
+}else if(input[2]=='remove'){
+ fs.unlinkSync(input[3])
+}else{
+ console.log("invalid input");
+}
+-->
 
 
-//delit
-fs.unlinkSync(`${dirpath}/apple.txt`)
+
+<!-- 
+const fs= require('fs');
+const path=require('path');
+
+const dirpath=path.join(__dirname,'files');
+
+for(i=0; i<5; i++){
+fs.writeFileSync("hello"+i+".txt", "a sample text file");
+}
