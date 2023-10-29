@@ -1,25 +1,28 @@
 const express=require('express');
-
+const reqfilter=require('./middleware');
 const app=express();
 
-const reqfilter=(req,res,next)=>{
- if(!req.query.age){
-     res.send("please enter your age");
+const route=express.Router();
 
- }
- else if(req.res.age<18){
-   res.send("your age must be 18+ to visit this site")
- }else{
-   next();
- }
-}
-app.use(reqfilter);
+route.use(reqfilter);
 
 
-app.get('', (req,resp)=>{
-   resp.send("welcome to the home page")
+
+// app.use(reqfilter);
+
+
+app.get('',(req,res)=>{
+   res.send("welcome to the home page")
 })
-app.get('/about',(req,resp)=>{
-   resp.send("welcome to the about page")
+app.get('/about',(req,res)=>{
+   res.send("welcome to the about page")
 })
-app.listen(2040);
+route.get('/help',(req,res)=>{
+   res.send("welcome to the help page")
+})
+route.get('/contact',(req,res)=>{
+   res.send("welcome to the contact page")
+})
+app.use('/', route);
+
+app.listen(4300);
