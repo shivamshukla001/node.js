@@ -1,40 +1,25 @@
-const express = require("express");
-const path=require('path');
+const express=require('express');
 
+const app=express();
 
-const app = express();
+const reqfilter=(req,res,next)=>{
+ if(!req.query.age){
+     res.send("please enter your age");
 
-const dirpath=path.join(__dirname,'public');
+ }
+ else if(req.res.age<18){
+   res.send("your age must be 18+ to visit this site")
+ }else{
+   next();
+ }
+}
+app.use(reqfilter);
 
-app.set('view engine', 'ejs');//template engine
 
 app.get('', (req,resp)=>{
-   resp.sendFile(`${dirpath}/index.html`)
+   resp.send("welcome to the home page")
 })
-
-app.get('/profile', (req,resp)=>{
-    const user={
-        name:'shivam SHukla',
-        email: "exaple.com",
-        city:'bikaner',
-        skills:['php','java','js','node','c++']
-    }
-    resp.render('profile',{user})
- })
- app.get('/login',(req,resp)=>{
-    resp.render('login');
- } )
-
-app.get('/help', (req,resp)=>{
-    resp.sendFile(`${dirpath}/help.html`)
- })
- app.get('/about', (req,resp)=>{
-    resp.sendFile(`${dirpath}/about.html`)
- })
- app.get('*', (req,resp)=>{
-    resp.sendFile(`${dirpath}/nopag.html`)
- })
-
-
-
-app.listen(5300);
+app.get('/about',(req,resp)=>{
+   resp.send("welcome to the about page")
+})
+app.listen(2040);
