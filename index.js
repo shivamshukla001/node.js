@@ -16,10 +16,14 @@ app.get('/profile', (req,resp)=>{
     const user={
         name:'shivam SHukla',
         email: "exaple.com",
-        city:'bikaner'
+        city:'bikaner',
+        skills:['php','java','js','node','c++']
     }
     resp.render('profile',{user})
  })
+ app.get('/login',(req,resp)=>{
+    resp.render('login');
+ } )
 
 app.get('/help', (req,resp)=>{
     resp.sendFile(`${dirpath}/help.html`)
