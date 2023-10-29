@@ -1,32 +1,23 @@
 const express = require("express");
+const path=require('path');
+
 
 const app = express();
+const dirpath=path.join(__dirname,'public');
 
-app.get("", (req, resp) => {
-  resp.send(`<h1>hello this is a home page</h1>
-  <a href="/about">Go to about page </a>
-  `);
-});
+app.get('', (req,resp)=>{
+   resp.sendFile(`${dirpath}/index.html`)
+})
+app.get('/help', (req,resp)=>{
+    resp.sendFile(`${dirpath}/help.html`)
+ })
+ app.get('/about', (req,resp)=>{
+    resp.sendFile(`${dirpath}/about.html`)
+ })
+ app.get('*', (req,resp)=>{
+    resp.sendFile(`${dirpath}/nopag.html`)
+ })
 
-app.get("/about", (req, resp) => {
-  resp.send(`
-     <input type="text" placeholder="search" value="${req.query.name}"/>
-     <button>Click me</button>    
-     <a href="/">Go to home page </a>
-    `);
-});
 
-app.get("/help", (req, resp) => {
-  resp.send([
-    {
-      name: "shivam",
-      email: "example.com",
-    },
-    {
-        name: "akash",
-        email: "akash.com",
-      }
-  ]);
-});
 
-app.listen(1020);
+app.listen(4300);
